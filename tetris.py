@@ -5,6 +5,7 @@ from colors import Colors
 
 pygame.init()
 
+# Setting up the presentation of the game itself
 title = pygame.font.Font(None, 42)
 scores = title.render("Score", True, Colors.white)
 nextup = title.render("Next", True, Colors.white)
@@ -23,6 +24,7 @@ game = Game()
 gameupdate = pygame.USEREVENT
 pygame.time.set_timer(gameupdate, 250)
 
+# Manages all of the possible "events" in the game
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -41,6 +43,7 @@ while True:
                 game.scoring(0, 1)
             if event.key == pygame.K_UP and game.gameover == False:
                 game.rotate()
+        # This is so the blocks fall down much slower, as opposed to 60 times per second
         if event.type == gameupdate and game.gameover == False:
             game.movedown()
 
@@ -49,6 +52,7 @@ while True:
     screen.blit(scores, (365, 20, 50, 50))
     screen.blit(nextup, (375, 180, 50, 50))
 
+# Adds a "GAME OVER" if you fail, game resets upon a new input
     if game.gameover == True:
         screen.blit(youdied, (320, 450, 50, 50))
         
